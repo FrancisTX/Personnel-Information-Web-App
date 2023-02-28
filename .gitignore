@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### frondend node root ###
+**/build
+**/node_modules
