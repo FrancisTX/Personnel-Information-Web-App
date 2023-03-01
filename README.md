@@ -1,8 +1,35 @@
 # Personnel-Information-Web-App
-A web application for managing personnel information, with Spring Boot backend API and React.js frontend. Using PostgreSQL on Docker and Spring Data JPA for data management. Utilized Maven for dependency management. Docker image is deployed on AWS.
+## Intro
+A web application for managing personnel information, 
+* Spring Boot backend, React.js frontend. 
+* Using PostgreSQL on Docker and Spring Data JPA for data management. 
+* Utilized Maven for dependency management. 
+* Docker image is deployed on AWS.
+
+## How to start
+* Download the repository
+* Create Postgres database using docker
+    * Create a network for connection docker and Postgres
+        * ```shell
+          docker network create db
+          ```
+    * create container
+        * ```shell
+          docker run --name db -p 5432:5432 --network=db \
+          -v "$PWD:/var/lib/postgresql/data" -e POSTGRES_PASSWORD=password \
+          -d postgres:alpine
+          ```
+    * Create a table in Postgres
+* Use maven to build the project
+    * ```shell
+      ./mvnw clean install
+      ```
+* Run the project and Start
+    * http://localhost:8080/
+    * run the generated jar file
+
 
 ## Spring boot full-stack professional
-
 1. Intro
 
 2. Create the demo project by the initializer
@@ -273,7 +300,7 @@ A web application for managing personnel information, with Spring Boot backend A
     * edit configuration in application.properties / .yml
 50. Create table in the database
     * make student class as a entity
-      ![student class image](student%20class.png)
+      ![student class image](image/student%20class.png)
       * @Entity : for query
       * @Table : add table for class student
       * @Id
@@ -291,11 +318,11 @@ A web application for managing personnel information, with Spring Boot backend A
 52. Retrive data from data base continued
     * Retrive all the students from table
     * Create a StudentRepository interface
-      ![studentRepository](student%20repository.png)
+      ![studentRepository](image/student%20repository.png)
     * Create a studentService that use findAll() method in StudentRepository
-      ![studentService](Student%20Service.png)
+      ![studentService](image/Student%20Service.png)
     * Add method in studentController that use studentService to list all students
-      ![studentController](student%20controller.png)
+      ![studentController](image/student%20controller.png)
 53. Get the data at the frontend
     * note:
 
@@ -325,6 +352,6 @@ A web application for managing personnel information, with Spring Boot backend A
 57. Add a addNewStudent in the client.js
     * using fetch
       * to fetch the url with post method and request body
-        ![add new student](addNewStudent.png)
+        ![add new student](image/addNewStudent.png)
 
 58. Call the addNewStudents
