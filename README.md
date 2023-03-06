@@ -353,5 +353,13 @@ A web application for managing personnel information,
     * using fetch
       * to fetch the url with post method and request body
         ![add new student](image/addNewStudent.png)
-
 58. Call the addNewStudents
+    * in the studentDrawerForm.js
+59. Keep building the frontend
+    * add uploading spin when submitting
+    * close form after submit
+    * fetchStudents() after submit to refresh the page
+60. Notification after submit the form
+    * <https://ant.design/components/notification>
+    * add Notification component
+61. 

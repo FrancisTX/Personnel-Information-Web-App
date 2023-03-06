@@ -1,22 +1,43 @@
-import {Button, Col, Drawer, Form, Input, Row, Select, Space} from "antd";
-import React from "react";
+import {Button, Col, Drawer, Form, Input, Row, Select, Space, Spin} from "antd";
+import {LoadingOutlined} from '@ant-design/icons';
+import React, {useState} from "react";
 import {addNewStudent} from "./client";
+import {errorNotification, successNotification} from "./Notification";
 
 const {Option} = Select;
-function StudentDrawerForm({showDrawer, setShowDrawer}) {
+const antIcon = < LoadingOutlined style={{ fontSize: 24}} spin />;
+function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudent}) {
     const onClose = () => {
         setShowDrawer(false);
     };
-
+    const [submitting, setSubmitting] = useState(false);
     const onFinish = student => {
+        setSubmitting(true);
         console.log(JSON.stringify(student, null, 2));
         addNewStudent(student)
             .then(() => {
-                console.log("student added")
+                console.log("student added");
+                onClose();
+                successNotification(
+                    'Student successfully added',
+                    'student was added to the system',
+                    'top',
+                );
+                console.log("send notification")
+                fetchStudent();
             }).catch( err => {
-                console.log(err)
-            }
-        )
+                console.log(err);
+                err.response.json().then(res => {
+                    console.log(res);
+                    errorNotification(
+                        "There was an issue",
+                        `${res.message} [${res.status}] [${res.error}]`,
+                        'top',
+                    )
+                });
+            }).finally(() => {
+                setSubmitting(false);
+            });
     };
 
     const onFinishFailed = errorInfo => {
@@ -32,9 +53,6 @@ function StudentDrawerForm({showDrawer, setShowDrawer}) {
         extra={
             <Space>
                 <Button onClick={onClose}>Cancel</Button>
-                <Button type="primary" onClick={onClose}>
-                    OK
-                </Button>
             </Space>
         }>
             <Form layout="vertical"
@@ -79,11 +97,14 @@ function StudentDrawerForm({showDrawer, setShowDrawer}) {
            <Row>
                <Col span={12}>
                    <Form.Item>
-                       <Button type="primary" htmlType="submit">
-                           Submit
-                       </Button>
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
                    </Form.Item>
                </Col>
+           </Row>
+           <Row>
+               {submitting && <Spin indicator={antIcon} /> }
            </Row>
             </Form>
         </Drawer>

@@ -88,7 +88,7 @@ function App() {
             return <Empty />
         }
         return<>
-            <StudentDrawerForm showDrawer={showDrawer} setShowDrawer={setShowDrawer} />
+            <StudentDrawerForm showDrawer={showDrawer} setShowDrawer={setShowDrawer} fetchStudent={fetchStudents}/>
             <Table dataSource={students}
                       columns={columns}
                       bordered
@@ -102,7 +102,7 @@ function App() {
                       scroll={{
                           y: 240,
                       }}
-                      rowKey={(student) => students.id}/>
+                      rowKey={students => students.id}/>
         </>
     }
 
